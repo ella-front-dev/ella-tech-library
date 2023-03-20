@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h2 class="title">Welcome to Ella's nuxt Library</h2>
+    <h2 class="title">Welcome to Ella's Nuxt3</h2>
     <div>
       <span class="sub-title">Setup List</span>
       <ul>
@@ -12,7 +12,7 @@
         <li>vtie / webpack 설정</li>
       </ul>
     </div>
-    
+  
   </div>
 </template>
 
