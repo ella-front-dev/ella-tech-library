@@ -1,27 +1,45 @@
 <template>
   <div class="container">
-    <h2 class="title">Welcome to Ella's Nuxt3</h2>
-    <div>
-      <span class="sub-title">Setup List</span>
-      <ul>
-        <li>locale</li>
-        <li>alias 셋팅</li>
-        <li>scss 설정</li>
-        <li>typescript 설정</li>
-        <li>store 설정</li>
-        <li>vtie / webpack 설정</li>
-      </ul>
+    <h2 class="title">Text Field Sample</h2>
+    <div class="content">
+      <div>
+        <span class="sub-title">Input Sample</span>
+        <BaseInput v-model="state.input"  />
+        <span class="option-list">Options</span>
+        <ul>
+          <li>
+            <span></span>
+            <span>
+              <BaseInput v-model="state.input"  />
+            </span>
+          </li>
+        </ul>
+
+      </div>
+      <div>
+        <span class="sub-title">Textarea Sample</span>
+        <BaseTextarea v-model="state.textarea"/>
+      </div>
     </div>
-  
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
+import BaseInput from '@/components/base/Input.vue'
+import BaseTextarea from '@/components/base/Textarea.vue'
 
 export default defineComponent({
+  components: {
+    BaseInput,
+    BaseTextarea
+  },
   setup() {
-    return {}
+    const state = reactive({
+      input : '',
+      textarea : ''
+    })
+    return {state}
   }
 })
 </script>
