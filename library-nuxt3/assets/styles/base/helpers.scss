@@ -1,0 +1,89 @@
+@import '../abstracts/variables';
+
+.pd {
+  @for $i from 0 through 10 {
+    &-t-#{$i}u {
+      padding-top: #{$base-unit * $i} !important;
+    }
+    &-b-#{$i}u {
+      padding-bottom: #{$base-unit * $i} !important;
+    }
+    &-l-#{$i}u {
+      padding-left: #{$base-unit * $i} !important;
+    }
+    &-r-#{$i}u {
+      padding-right: #{$base-unit * $i} !important;
+    }
+    &-h-#{$i}u {
+      padding-right: #{$base-unit * $i} !important;
+      padding-left: #{$base-unit * $i} !important;
+    }
+    &-v-#{$i}u {
+      padding-top: #{$base-unit * $i} !important;
+      padding-bottom: #{$base-unit * $i} !important;
+    }
+  }
+}
+
+.mg {
+  @for $i from 1 through 10 {
+    &-t-#{$i}u {
+      margin-top: #{$base-unit * $i} !important;
+    }
+    &-b-#{$i}u {
+      margin-bottom: #{$base-unit * $i} !important;
+    }
+    &-l-#{$i}u {
+      margin-left: #{$base-unit * $i} !important;
+    }
+    &-r-#{$i}u {
+      margin-right: #{$base-unit * $i} !important;
+    }
+    &-h-#{$i}u {
+      margin-right: #{$base-unit * $i} !important;
+      margin-left: #{$base-unit * $i} !important;
+    }
+    &-v-#{$i}u {
+      margin-top: #{$base-unit * $i} !important;
+      margin-bottom: #{$base-unit * $i} !important;
+    }
+  }
+}
+
+
+.text-regular { font-weight: 400 !important; }
+.text-medium { font-weight: 600 !important; }
+.text-bold { font-weight: 700 !important; }
+
+.text-color-primary-red { color: $color-primary-red; }
+.text-color-primary-blue { color: $color-primary-blue; }
+.text-color-primary-green { color: $color-primary-green; }
+.text-color-1 { color: $color-text-1; }
+.text-color-2 { color: $color-text-2; }
+.text-color-3 { color: $color-text-3; }
+.text-color-4 { color: $color-text-4; }
+.text-color-5 { color: $color-text-5; }
+.text-color-6 { color: $color-text-6; }
+.text-color-7 { color: $color-text-7; }
+
+
+.text-size {
+  @for $i from 0 through 24 {
+    &-#{$i} {
+      font-size: #{$i}px !important;
+    }
+  }
+}
+
+.text-deco-line { text-decoration-line: line-through; }
+
+.width {
+  @for $i from 1 through 10 {
+    &-#{$i}00 {
+      width: 100px * $i !important;
+    }
+  }
+}
+
+.pointer-event-all { pointer-events: all; }
+.pointer-event-none { pointer-events: none; }

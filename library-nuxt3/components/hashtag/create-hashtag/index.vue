@@ -22,7 +22,6 @@
 
 <script lang="ts">
 import { defineComponent, reactive, watch } from 'vue'
-import { useI18n } from '#imports'
 import { toastMessage } from '@/plugins/toastMessage'
 import TagInput from '@/components/base/create-hashtag/TagInput.vue'
 import HashtagItem from '@/components/base/create-hashtag/HashtagItem.vue'
@@ -49,7 +48,6 @@ export default defineComponent({
       tagSet: [],
       totalTagLength: 0
     })
-    const { t } = useI18n()
 
     watch(state.tagSet,(current)=>{
       emit('updateTags', current)
@@ -83,7 +81,7 @@ export default defineComponent({
       if(findTag === -1){
         return handleOnPushTag(str)
       }else{
-        toastMessage(t('postCreate.toastMessage.validateHashtagDuplicate'))
+        toastMessage('중복된 태그입니다.')
       }
     }
 

@@ -1,0 +1,31 @@
+@import '../abstracts/mixin.scss';
+@import '../abstracts/functions.scss';
+@import '../abstracts/variables.scss';
+
+.tippy-box[data-theme~='popover'] {
+  background-color: transparent;
+  color: $color-text-1;
+  border-radius: 0;
+  pointer-events: auto;
+
+  .tippy-content {
+    padding: 0;
+  }
+
+  .tippy-arrow {
+    display: none;
+  }
+}
+
+.tippy-box[data-theme~='simple'] {
+  background-color: $color-bg-3;
+  box-shadow: 0 0 10px 0 hex-to-rgba($color-bg-custom-4, .2);
+
+  .tippy-content {
+    color: $color-text-2;
+  }
+
+  .tippy-arrow {
+    color: $color-bg-3;
+  }
+}

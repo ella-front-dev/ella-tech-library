@@ -1,0 +1,131 @@
+@use "sass:map";
+@import './variables';
+@import './functions';
+
+/** ----------------------------------------------------------------------------------------------------
+ * Transition
+ ---------------------------------------------------------------------------------------------------- */
+@mixin transition($transition...) {
+  -moz-transition:    $transition;
+  -o-transition:      $transition;
+  -webkit-transition: $transition;
+  transition:         $transition;
+}
+
+@mixin transition-property($property...) {
+  -moz-transition-property:    $property;
+  -o-transition-property:      $property;
+  -webkit-transition-property: $property;
+  transition-property:         $property;
+}
+
+@mixin transition-duration($duration...) {
+  -moz-transition-property:    $duration;
+  -o-transition-property:      $duration;
+  -webkit-transition-property: $duration;
+  transition-property:         $duration;
+}
+
+@mixin transition-timing-function($timing...) {
+  -moz-transition-timing-function:    $timing;
+  -o-transition-timing-function:      $timing;
+  -webkit-transition-timing-function: $timing;
+  transition-timing-function:         $timing;
+}
+
+@mixin transition-delay($delay...) {
+  -moz-transition-delay:    $delay;
+  -o-transition-delay:      $delay;
+  -webkit-transition-delay: $delay;
+  transition-delay:         $delay;
+}
+
+
+/** ----------------------------------------------------------------------------------------------------
+ * Typographic
+ ---------------------------------------------------------------------------------------------------- */
+@mixin text-style ($text-style) {
+
+  //$text-style: 'body-14-regular';
+  $font-weight: find-text-style($text-style, 'font-weight');
+  $font-size: find-text-style($text-style, 'font-size');
+  $font-line-height: find-text-style($text-style, 'line-height');
+  $letter-spacing: find-text-style($text-style, 'letter-spacing');
+
+  font-weight: $font-weight;
+  font-size: $font-size;
+  line-height: $font-line-height;
+  letter-spacing: $letter-spacing;
+}
+
+@mixin ellipsis ($line) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+
+/** ----------------------------------------------------------------------------------------------------
+ * Color
+ ---------------------------------------------------------------------------------------------------- */
+@mixin color ($color) {
+  color: $color;
+}
+
+/** ----------------------------------------------------------------------------------------------------
+ * Inner
+ ---------------------------------------------------------------------------------------------------- */
+@mixin inner-base {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  width: 100%;
+  height: 100%;
+  max-width: $base-desktop-main-max-width;
+  padding: 0 16px;
+  @include transition(width .2s ease-in-out);
+}
+
+@mixin inner-left-base {
+  flex-shrink: 0;
+  width: $left-side-bar-width;
+  height: 100%;
+}
+
+@mixin inner-center-base {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+@mixin inner-right-base {
+  flex-shrink: 0;
+  width: $right-side-bar-width;
+  height: 100%;
+}
+
+/** ----------------------------------------------------------------------------------------------------
+ * Breakpoint
+ ---------------------------------------------------------------------------------------------------- */
+@mixin mobile {
+  @media (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+// Custom devices
+@mixin custom-break-point($screen) {
+  @media (max-width: $screen+'px') {
+    @content;
+  }
+}

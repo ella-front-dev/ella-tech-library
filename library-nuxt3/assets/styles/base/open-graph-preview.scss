@@ -1,0 +1,55 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixin';
+@import '../abstracts/functions';
+
+.og-preview {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin: 12px 0;
+  text-decoration: none !important;
+
+  .og-image {
+    flex-shrink: 0;
+    width: 150px;
+    height: 150px;
+    border-radius: 3px;
+    background-color: $color-bg-1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 48px;
+    background-image: url('@/assets/images/empty-image-default.svg');
+    overflow: hidden;
+
+    > .image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-position: center;
+      background-size: cover;
+    }
+  }
+
+  .og-contents {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: $color-text-2;
+
+    > .og-url {
+      @include text-style($text-body-14-regular);
+      @include ellipsis(1);
+    }
+
+    > .og-title {
+      @include text-style($text-custom-18-bold);
+      @include ellipsis(2);
+    }
+
+    > .og-description {
+      @include text-style($text-body-14-regular);
+      @include ellipsis(3);
+    }
+  }
+}

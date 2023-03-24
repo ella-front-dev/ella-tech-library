@@ -32,8 +32,7 @@
 <script lang="ts">
 import { defineComponent, InputHTMLAttributes, onMounted, onUnmounted,reactive,ref, watch, computed } from 'vue'
 import { useNuxtApp } from '#app'
-import { useI18n } from '#imports'
-import HashtagMenu from '@/components/base/create-hashtag/HashtagMenu.vue'
+import HashtagMenu from '@/components/hashtag/create-hashtag/HashtagItem.vue'
 import { detectElementInViewport } from '@/plugins/detectElementInViewport'
 import { toastMessage } from '@/plugins/toastMessage'
 
@@ -59,7 +58,6 @@ export default defineComponent({
   ],
   setup(props, { emit }) {
     const { $checkByte, $checkSpecialCharacters } = useNuxtApp()
-    const { t } = useI18n()
     const inputRef = ref<HTMLInputElement | null>(null)
     const inputFocus = ref(false)
     const choiceTagsIndex = ref<number | null>(null)
@@ -139,19 +137,19 @@ export default defineComponent({
 
       if($checkSpecialCharacters(target)){
         handleOnReset()
-        toastMessage(t('postCreate.toastMessage.validateHashtagCharacter'))
+        toastMessage('한글, 영문, 숫자만 입력 가능합니다.')
       } else if($checkByte(target, 60, 'over')){
         handleOnReset()
-        toastMessage(t('postCreate.toastMessage.validateHashtagCheckByte'))
+        toastMessage('최대 30자까지 입력 가능합니다.')
       } else if(props.tagSet.length >= 5){
         handleOnReset()
-        toastMessage(t('postCreate.toastMessage.validateHashtagCount'))
+        toastMessage('태그는 최대 5개까지 입력 가능합니다.')
       }
     }
 
 
     const  clickOnMenu = (item:string) => {
-      (props.tagSet.length >= 5) ?  toastMessage(t('postCreate.toastMessage.validateHashtagCount:')): emit('update', item)
+      (props.tagSet.length >= 5) ?  toastMessage('태그는 최대 5개까지 입력 가능합니다.'): emit('update', item)
       handleOnReset()
     }
 

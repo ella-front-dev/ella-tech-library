@@ -8,9 +8,15 @@
         <span class="option-list">Options</span>
         <ul>
           <li>
+            <span>Type / Label / Placeholder</span>
+            <span>
+              <BaseInput v-model="state.input2" :label="'Password'" type="password" :placeholder="'write your password'"   />
+            </span>
+          </li>
+          <li>
             <span></span>
             <span>
-              <BaseInput v-model="state.input"  />
+              <BaseInput v-model="state.input3" :isOption="true" :validate="{status: true, }"  />
             </span>
           </li>
         </ul>
@@ -37,6 +43,8 @@ export default defineComponent({
   setup() {
     const state = reactive({
       input : '',
+      input2 : '',
+      input3 : '',
       textarea : ''
     })
     return {state}

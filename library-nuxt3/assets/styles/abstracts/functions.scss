@@ -1,0 +1,18 @@
+@import './variables';
+
+@function find-text-style ($name, $target) {
+  @each $text-style-id, $font-weight, $font-size, $line-height, $letter-spacing in $texts {
+    @if ($text-style-id == $name) {
+      @return map-get((
+        'font-weight': $font-weight,
+        'font-size': $font-size,
+        'line-height': $line-height,
+        'letter-spacing': $letter-spacing
+      ), $target);
+    }
+  }
+};
+
+@function hex-to-rgba ($color, $opacity) {
+  @return transparentize($color, 1 - $opacity);
+};

@@ -1,0 +1,29 @@
+@import '../abstracts/variables';
+@import '../abstracts/mixin';
+@import '../abstracts/functions';
+
+*::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: hex-to-rgba($color-dark-4, .2);
+  border: none;
+  transition: background-color .2s ease-in-out;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: hex-to-rgba($color-dark-4, .4);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: hex-to-rgba($color-dark-4, .6);
+}

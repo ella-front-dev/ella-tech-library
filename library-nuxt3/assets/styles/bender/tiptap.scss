@@ -1,0 +1,127 @@
+@import '../abstracts/mixin.scss';
+@import '../abstracts/functions.scss';
+@import '../abstracts/variables.scss';
+
+.tip-tap {
+  overflow: visible;
+}
+
+.ProseMirror,
+.tiptap-inner,
+.post-contents,
+.comments-box .comment .inner,
+.board-detail-contents {
+  //height: 100%;
+  //white-space: pre-line;
+  @include text-style($text-body-14-regular);
+  color: $color-text-2;
+  word-break: break-all;
+  overflow: hidden;
+
+  a {
+    color: $color-primary-red;
+    text-decoration: underline;
+  }
+
+  h1 {
+    @include text-style($text-heading1-bold);
+  }
+
+  h2 {
+    @include text-style($text-heading2-bold);
+  }
+
+  h3 {
+    @include text-style($text-heading3-bold);
+  }
+
+  ol {
+    padding-left: 16px;
+    li {
+      list-style-type: decimal;
+    }
+  }
+
+  ul {
+    padding-left: 18px;
+
+    li {
+      list-style-type: circle;
+    }
+  }
+
+  .editor-italic {
+    font-style: italic;
+  }
+
+  .editor-bold {
+    font-weight: 700;
+  }
+
+  .editor-strike {
+    text-decoration-line: line-through;
+  }
+
+  .editor-underline {
+    text-decoration: underline;
+  }
+
+  .editor-align-center {
+    text-align: center;
+  }
+  .editor-align-left {
+    text-align: left;
+  }
+  .editor-align-right {
+    text-align: right;
+  }
+
+  p:not(:first-child) {
+    margin-top: 12px;
+  }
+
+  p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #adb5bd;
+    pointer-events: none;
+    height: 0;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  a + h1,
+  p + h1,
+  h2 + h1,
+  ul + h1,
+  ol + h1,
+  img + h1,
+  blockquote + h1 {
+    margin-top: 32px;
+  }
+
+  a + h2,
+  p + h2,
+  h2 + h2,
+  ul + h2,
+  ol + h2,
+  img + h2,
+  blockquote + h2 {
+    margin-top: 22px;
+  }
+
+  a + h3,
+  p + h3,
+  h2 + h3,
+  ul + h3,
+  ol + h3,
+  img + h3,
+  blockquote + h3 {
+    margin-top: 18px;
+  }
+}

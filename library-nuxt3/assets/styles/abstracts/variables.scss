@@ -1,0 +1,353 @@
+/** ----------------------------------------------------------------------------------------------------
+ * Base Unit
+ ---------------------------------------------------------------------------------------------------- */
+$base-unit: 4px;
+$base-desktop-main-max-width: calc(1200px + 16px + 16px);
+$base-tablet-main-max-width: calc(800px + 16px + 16px);
+
+/** ----------------------------------------------------------------------------------------------------
+ * Colors
+ ---------------------------------------------------------------------------------------------------- */
+// NEW
+// Primary Color
+$color-primary-red: #ff4401;
+$color-primary-orange: #fd7240;
+$color-primary-yellow: #ea942c;
+$color-primary-blue: #347ae2;
+$color-primary-purple: #6570f7;
+$color-primary-green: #0ecc8d;
+
+// Secondary Color: Red
+$color-secondary-red-dark-10: #1a0700;
+$color-secondary-red-dark-20: #330e00;
+$color-secondary-red-dark-30: #4d1400;
+$color-secondary-red-dark-40: #661b00;
+$color-secondary-red-dark-50: #802200;
+$color-secondary-red-dark-60: #992901;
+$color-secondary-red-dark-70: #b33001;
+$color-secondary-red-dark-80: #cc3601;
+$color-secondary-red-dark-90: #e53d01;
+$color-secondary-red: #ff4401;
+$color-secondary-red-light-90: #ff571a;
+$color-secondary-red-light-80: #ff6934;
+$color-secondary-red-light-70: #ff7c4d;
+$color-secondary-red-light-60: #ff8f67;
+$color-secondary-red-light-50: #ffa180;
+$color-secondary-red-light-40: #ffb499;
+$color-secondary-red-light-30: #ffc7b3;
+$color-secondary-red-light-20: #ffdacc;
+$color-secondary-red-light-10: #ffece6;
+
+$color-secondary-red-custom-1: #ed3e00;
+$color-secondary-red-custom-2: #dc3a00;
+$color-secondary-red-custom-3: #fcded5;
+$color-secondary-red-custom-4: #fccbbc;
+
+// Secondary Color: Yellow
+$color-secondary-yellow-dark-10: #170f04;
+$color-secondary-yellow-dark-20: #2f1e09;
+$color-secondary-yellow-dark-30: #462c0d;
+$color-secondary-yellow-dark-40: #5e3b12;
+$color-secondary-yellow-dark-50: #754a16;
+$color-secondary-yellow-dark-60: #8c591a;
+$color-secondary-yellow-dark-70: #a4681f;
+$color-secondary-yellow-dark-80: #bb7623;
+$color-secondary-yellow-dark-90: #d38528;
+$color-secondary-yellow: #ea942c;
+$color-secondary-yellow-light-90: #ec9f41;
+$color-secondary-yellow-light-80: #eea956;
+$color-secondary-yellow-light-70: #f0b46b;
+$color-secondary-yellow-light-60: #f2bf80;
+$color-secondary-yellow-light-50: #f5ca95;
+$color-secondary-yellow-light-40: #f7d4ab;
+$color-secondary-yellow-light-30: #f9dfc0;
+$color-secondary-yellow-light-20: #fbead5;
+$color-secondary-yellow-light-10: #fdf4ea;
+
+// Secondary Color: Blue
+$color-secondary-blue-dark-10: #0a182d;
+$color-secondary-blue-dark-20: #141631;
+$color-secondary-blue-dark-30: #102544;
+$color-secondary-blue-dark-40: #15315a;
+$color-secondary-blue-dark-50: #1a3d71;
+$color-secondary-blue-dark-60: #1f4988;
+$color-secondary-blue-dark-70: #24559e;
+$color-secondary-blue-dark-80: #2a62b5;
+$color-secondary-blue-dark-90: #2f6ecb;
+$color-secondary-blue: #347ae2;
+$color-secondary-blue-light-90: #4887e5;
+$color-secondary-blue-light-80: #5d95e8;
+$color-secondary-blue-light-70: #71a2eb;
+$color-secondary-blue-light-60: #85afee;
+$color-secondary-blue-light-50: #99bcf1;
+$color-secondary-blue-light-40: #aecaf3;
+$color-secondary-blue-light-30: #c2d7f6;
+$color-secondary-blue-light-20: #d6e4f9;
+$color-secondary-blue-light-10: #ebf2fc;
+
+// Secondary Color: Purple
+$color-secondary-purple-dark-10: #0a0b19;
+$color-secondary-purple-dark-20: #141631;
+$color-secondary-purple-dark-30: #1e224a;
+$color-secondary-purple-dark-40: #282d63;
+$color-secondary-purple-dark-50: #33387c;
+$color-secondary-purple-dark-60: #3d4394;
+$color-secondary-purple-dark-70: #474ead;
+$color-secondary-purple-dark-80: #515ac6;
+$color-secondary-purple-dark-90: #5b65de;
+$color-secondary-purple: #6570f7;
+$color-secondary-purple-light-90: #747ef8;
+$color-secondary-purple-light-80: #848df9;
+$color-secondary-purple-light-70: #939bf9;
+$color-secondary-purple-light-60: #a3a9fa;
+$color-secondary-purple-light-50: #b2b7fb;
+$color-secondary-purple-light-40: #c1c6fc;
+$color-secondary-purple-light-30: #d1d4fd;
+$color-secondary-purple-light-20: #e0e2fd;
+$color-secondary-purple-light-10: #f0f1fe;
+
+// Secondary Color: Green
+$color-secondary-green-dark-10: #01140e;
+$color-secondary-green-dark-20: #03291c;
+$color-secondary-green-dark-30: #043d2a;
+$color-secondary-green-dark-40: #065238;
+$color-secondary-green-dark-50: #076647;
+$color-secondary-green-dark-60: #087a55;
+$color-secondary-green-dark-70: #0a8f63;
+$color-secondary-green-dark-80: #0ba371;
+$color-secondary-green-dark-90: #0db87f;
+$color-secondary-green: #0ecc8d;
+$color-secondary-green-light-90: #26d198;
+$color-secondary-green-light-80: #3ed6a4;
+$color-secondary-green-light-70: #56dbaf;
+$color-secondary-green-light-60: #6ee0bb;
+$color-secondary-green-light-50: #86e6c6;
+$color-secondary-green-light-40: #9febd1;
+$color-secondary-green-light-30: #b7f0dd;
+$color-secondary-green-light-20: #cff5e8;
+$color-secondary-green-light-10: #e7faf4;
+
+// Background Color
+$color-bg-1: #f4f6f8;
+$color-bg-2: #f7f7f7;
+$color-bg-3: #ffffff;
+
+$color-bg-custom-1: #e9ecee;
+$color-bg-custom-2: #ededed;
+$color-bg-custom-3: #dadada;
+$color-bg-custom-4: #959595;
+$color-bg-custom-5: #f3f6f9;
+$color-bg-custom-6: #ecf0f4;
+$color-bg-custom-7: #c4d9f9;
+
+// Text Color
+$color-text-1: #192351;
+$color-text-2: #3f4354;
+$color-text-3: #97989d;
+$color-text-4: #858ead;
+$color-text-5: #c5d0e6;
+$color-text-6: #767e9b;
+$color-text-7: #666f8d;
+$color-text-8: #58607d;
+
+// Dark Color
+$color-dark-1: #151a1e;
+$color-dark-2: #1e252b;
+$color-dark-3: #262d34;
+$color-dark-4: #2c353d;
+
+$color-gray-1: #f0f0f0;
+
+// Social Color
+$color-facebook: #315fac;
+$color-twitter: #28a7df;
+$color-kakao: #3d1b1b;
+$color-discord: #5865f2;
+
+// Border Color
+$border-1: #f0f0f0;
+
+// OLD
+$color-ea: #eaeaea;
+$color-ed: #ededed;
+$color-ee: #eeeeee;
+$color-de: #dedede;
+$color-a5: #a5a5a5;
+$color-99: #999999;
+$color-33: #333333;
+
+$color-primary: #4b76f3;
+$color-primary-dark-1: #3359c7;
+$color-primary-dark-2: #2847da;
+$color-primary-dark-3: #162fa7;
+$color-primary-dark-4: #0c1c67;
+
+$color-highlight: #ffd008;
+
+$color-neutral-dark-1: #141414;
+$color-neutral-dark-2: #4f4f4f;
+$color-neutral-dark-3: #8a8a8a;
+$color-neutral-dark-4: #c4c4c4;
+
+$color-neutral-light-1: #e5e5e5;
+$color-neutral-light-2: #ebebeb;
+$color-neutral-light-3: #f0f0f0;
+$color-neutral-light-4: #f5f5f5;
+$color-neutral-light-5: #fafafa;
+
+$color-light-1: #eeeae6;
+$color-light-2: #dcdfe8;
+$color-light-3: #ced0d8;
+
+$color-white-3p: rgba(255, 255, 255, 0.03);
+$color-white-5p: rgba(255, 255, 255, 0.05);
+$color-white-10p: rgba(255, 255, 255, 0.1);
+$color-white-15p: rgba(255, 255, 255, 0.15);
+$color-white-20p: rgba(255, 255, 255, 0.2);
+$color-white-30p: rgba(255, 255, 255, 0.3);
+$color-white-40p: rgba(255, 255, 255, 0.4);
+$color-white-50p: rgba(255, 255, 255, 0.5);
+$color-white-60p: rgba(255, 255, 255, 0.6);
+$color-white-70p: rgba(255, 255, 255, 0.7);
+$color-white-70p: rgba(255, 255, 255, 0.8);
+$color-white-90p: rgba(255, 255, 255, 0.9);
+$color-white: #ffffff;
+
+$color-black-3p: rgba(0, 0, 0, 0.03);
+$color-black-5p: rgba(0, 0, 0, 0.05);
+$color-black-10p: rgba(0, 0, 0, 0.1);
+$color-black-15p: rgba(0, 0, 0, 0.15);
+$color-black-20p: rgba(0, 0, 0, 0.2);
+$color-black-25p: rgba(0, 0, 0, 0.25);
+$color-black-30p: rgba(0, 0, 0, 0.3);
+$color-black-40p: rgba(0, 0, 0, 0.4);
+$color-black-50p: rgba(0, 0, 0, 0.5);
+$color-black-60p: rgba(0, 0, 0, 0.6);
+$color-black-70p: rgba(0, 0, 0, 0.7);
+$color-black-80p: rgba(0, 0, 0, 0.8);
+$color-black-90p: rgba(0, 0, 0, 0.9);
+$color-black: #000000;
+
+$color-warning: #ff4200;
+
+$color-border-1: #f7f7f7;
+
+/** ----------------------------------------------------------------------------------------------------
+ * Texts
+ ---------------------------------------------------------------------------------------------------- */
+
+// 사전에 정의된 텍스트 스타일
+$text-heading1-bold: 'heading1-bold';
+$text-heading1-medium: 'heading1-medium';
+$text-heading1-regular: 'heading1-regular';
+$text-heading2-bold: 'heading2-bold';
+$text-heading2-medium: 'heading2-medium';
+$text-heading2-regular: 'heading2-regular';
+$text-heading3-bold: 'heading3-bold';
+$text-heading3-medium: 'heading3-medium';
+$text-heading3-regular: 'heading3-regular';
+$text-display-bold: 'display-bold';
+$text-display-medium: 'display-medium';
+$text-display-regular: 'display-regular';
+$text-body-14-bold: 'body-14-bold';
+$text-body-14-medium: 'body-14-medium';
+$text-body-14-regular: 'body-14-regular';
+$text-body-13-bold: 'body-13-bold';
+$text-body-13-medium: 'body-13-medium';
+$text-body-13-regular: 'body-13-regular';
+$text-body-12-bold: 'body-12-bold';
+$text-body-12-medium: 'body-12-medium';
+$text-body-12-regular: 'body-12-regular';
+$text-body-11-medium: 'body-11-medium';
+$text-body-11-regular: 'body-11-regular';
+$text-body-10-medium: 'body-10-medium';
+$text-body-10-regular: 'body-10-regular';
+$text-body-9-medium: 'body-9-medium';
+$text-body-9-regular: 'body-9-regular';
+
+$text-custom-40-bold: 'custom-40-bold';
+$text-custom-28-bold: 'custom-28-bold';
+$text-custom-25-regular: 'custom-25-regular';
+$text-custom-22-bold: 'custom-22-bold';
+$text-custom-18-bold: 'custom-18-bold';
+
+// 텍스트 스타일 맵핑 정보
+$texts:
+  'heading1-bold' 700 26px 38px -0.55px,
+  'heading1-medium' 500 26px 38px -0.55px,
+  'heading1-regular' 400 26px 38px -0.55px,
+  'heading2-bold' 700 20px 28px -0.55px,
+  'heading2-medium' 500 20px 26px -0.55px,
+  'heading2-regular' 400 20px 26px -0.55px,
+  'heading3-bold' 700 16px 28px -0.55px,
+  'heading3-medium' 500 16px 26px -0.55px,
+  'heading3-regular' 400 16px 26px -0.55px,
+  'display-bold' 700 16px 24px -0.55px,
+  'display-medium' 500 16px 24px -0.55px,
+  'display-regular' 400 16px 24px -0.55px,
+  'body-14-bold' 700 14px 22px -0.55px,
+  'body-14-medium' 500 14px 22px -0.55px,
+  'body-14-regular' 400 14px 22px -0.55px,
+  'body-13-bold' 700 13px 20px -0.55px,
+  'body-13-medium' 500 13px 20px -0.55px,
+  'body-13-regular' 400 13px 20px -0.55px,
+  'body-12-bold' 700 12px 20px -0.55px,
+  'body-12-medium' 500 12px 20px -0.55px,
+  'body-12-regular' 400 12px 18px -0.55px,
+  'body-11-medium' 500 11px 16px -0.55px,
+  'body-11-regular' 400 11px 16px -0.55px,
+  'body-10-medium' 500 10px 16px -0.55px,
+  'body-10-regular' 400 10px 16px -0.55px,
+  'body-9-medium' 500 9px 14px -0.55px,
+  'body-9-regular' 400 9px 14px -0.55px,
+
+  'custom-40-bold' 700 40px 48px 0px,
+  'custom-28-bold' 700 28px 42px -0.55px,
+  'custom-25-regular' 400 25px 38px -0.55px,
+  'custom-22-bold' 700 22px 30px -0.55px,
+  'custom-18-bold' 700 18px 22px -0.55px;
+/** ----------------------------------------------------------------------------------------------------
+ * Z Index
+ ---------------------------------------------------------------------------------------------------- */
+$z-index-top-bar: 60;
+$z-index-drop-down: 50;
+$z-index-editor-tooltip: 50;
+$z-index-user-panel: 30;
+$z-index-system-panel: 30;
+$z-index-dev-guide: 1000;
+$z-index-loading-indicator-global: 8000;
+$z-index-toast-message: 9000;
+//$z-index-floating-box: 60;
+//$z-index-home-service-intro: 80;
+//$z-index-home-action-bar: 90;
+//$z-index-home-action-bar: 90;
+//$z-index-dialog-modal: 200;
+//$z-index-action-sheet: 200;
+
+/** ----------------------------------------------------------------------------------------------------
+ * Layout
+ ---------------------------------------------------------------------------------------------------- */
+$main-vertical-padding: 40px;
+$left-side-bar-width: 190px;
+$right-side-bar-width: 260px;
+$mobile-side-panel-max-width: 270px;
+
+/** ----------------------------------------------------------------------------------------------------
+ * Comment
+ ---------------------------------------------------------------------------------------------------- */
+$comment-and-reply-gap: 20px;
+
+
+/** ----------------------------------------------------------------------------------------------------
+ * Break Point
+ ---------------------------------------------------------------------------------------------------- */
+// $mobile: 960px;
+// $tablet: 1180px;
+
+$mobile: 768px;
+$tablet: 1024px;
+
+:export {
+  break-points-mobile: $mobile;
+  break-points-tablet: $tablet;
+}
