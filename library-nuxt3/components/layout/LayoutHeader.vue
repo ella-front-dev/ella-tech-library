@@ -1,12 +1,7 @@
 <template>
   <header class="header">
     <div class="inner">
-      <h1 class="logo">Ella's DEV</h1>
-      <ul class="menu">
-        <li>Main</li>
-        <li>Sub1</li>
-        <li>Sub2</li>
-      </ul>
+      <NuxtLink to="/"><h1 class="logo">Ella's DEV</h1></NuxtLink>
     </div>
   </header>
 </template>

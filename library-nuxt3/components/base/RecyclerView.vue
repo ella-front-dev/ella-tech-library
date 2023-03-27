@@ -1,6 +1,6 @@
 <template>
   <div class="recycler-view-wrap">
-    <div class="scroll-guard" :style="{ opacity: scrollGuardOpacity, paddingBottom: `${boxBottomPadding}px` }"></div>
+    <!-- <div class="scroll-guard" :style="{ opacity: scrollGuardOpacity, paddingBottom: `${boxBottomPadding}px` }"></div>
     <DynamicScroller
       ref="recyclerViewRef"
       :items="items"
@@ -34,20 +34,20 @@
           </div>
         </DynamicScrollerItem>
       </template>
-    </DynamicScroller>
+    </DynamicScroller> -->
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType, ref, onMounted, onUnmounted, computed } from 'vue'
-import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
+// import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 import BaseLoadingIndicator from '@/components/base/LoadingIndicator.vue'
 
 export default defineComponent({
   name: 'BaseRecyclerViewNew',
   components: {
-    DynamicScroller,
-    DynamicScrollerItem,
+    // DynamicScroller,
+    // DynamicScrollerItem,
     BaseLoadingIndicator
   },
   props: {

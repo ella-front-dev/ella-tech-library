@@ -33,7 +33,9 @@ export default defineNuxtConfig({
   // },
 
   css: [
-    // '@/assets/styles/app.scss'
+    'vue-virtual-scroller/dist/vue-virtual-scroller.css',
+    'tippy.js/dist/tippy.css',
+    '@/assets/styles/app.scss'
   ],
   vite: {
     plugins: [

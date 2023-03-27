@@ -1,8 +1,9 @@
 import { defineNuxtPlugin } from '#imports'
-import { LocaleCodeType } from '@/configs/i18n'
 import formatGapTime from '@/plugins/formats/formatGapTime'
 import formatLocaleTime, { FormatLocaleTimeType } from '@/plugins/formats/formatLocaleTime'
 import formatThousandsSeparators from '@/plugins/formats/formatThousandsSeparators'
+export type LocaleCodeType = 'ko' | 'en'
+
 
 export default defineNuxtPlugin(() => {
   return {

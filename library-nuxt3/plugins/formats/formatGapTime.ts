@@ -1,7 +1,9 @@
-import ko from '@/locales/ko'
-import en from '@/locales/en'
-import { LocaleCodeType } from '@/configs/i18n'
+// import ko from '@/locales/ko'
+// import en from '@/locales/en'
+// import { LocaleCodeType } from '@/configs/i18n'
 import formatLocaleTime from '~/plugins/formats/formatLocaleTime'
+
+export type LocaleCodeType = 'ko' | 'en'
 
 export default (date: Date, language: LocaleCodeType) => {
   const pastTimestamp = new Date(new Date(date).getTime() + (new Date(date).getTimezoneOffset() * 60 * 1000 * -1)).getTime()

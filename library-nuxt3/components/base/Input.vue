@@ -188,35 +188,6 @@ export default defineComponent({
   }
 }
 
-
-/**
-    "swiper": "8.4.7",
-    "vue-final-modal": "3",
-    "vue-tippy": "v6",
-    "vue-virtual-scroller": "2.0.0-beta.8"
-        "@tiptap/core": "2.0.0-beta.213",
-    "@tiptap/extension-bold": "2.0.0-beta.213",
-    "@tiptap/extension-bubble-menu": "2.0.0-beta.213",
-    "@tiptap/extension-bullet-list": "2.0.0-beta.213",
-    "@tiptap/extension-character-count": "2.0.0-beta.213",
-    "@tiptap/extension-color": "2.0.0-beta.213",
-    "@tiptap/extension-document": "2.0.0-beta.213",
-    "@tiptap/extension-heading": "2.0.0-beta.213",
-    "@tiptap/extension-highlight": "2.0.0-beta.213",
-    "@tiptap/extension-image": "2.0.0-beta.213",
-    "@tiptap/extension-italic": "2.0.0-beta.213",
-    "@tiptap/extension-link": "2.0.0-beta.213",
-    "@tiptap/extension-list-item": "2.0.0-beta.213",
-    "@tiptap/extension-ordered-list": "2.0.0-beta.213",
-    "@tiptap/extension-paragraph": "2.0.0-beta.213",
-    "@tiptap/extension-placeholder": "2.0.0-beta.213",
-    "@tiptap/extension-strike": "2.0.0-beta.213",
-    "@tiptap/extension-text": "2.0.0-beta.213",
-    "@tiptap/extension-text-align": "2.0.0-beta.213",
-    "@tiptap/extension-text-style": "2.0.0-beta.213",
-    "@tiptap/extension-underline": "2.0.0-beta.213",
-**/
-
 </style>
 
 

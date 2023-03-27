@@ -1,7 +1,7 @@
 import { defineNuxtPlugin } from '#imports'
-import { useCommStore } from '@/store'
-import { Post, PostsItem } from '@/store/post/type'
-import { PostContentsType } from '@/components/box/post/PostContents.vue'
+// import { useCommStore } from '@/store'
+// import { Post, PostsItem } from '@/store/post/type'
+// import { PostContentsType } from '@/components/box/post/PostContents.vue'
 
 type Og = { [Property in string]: string }
 
@@ -74,26 +74,26 @@ const getOpenGraphs = (html: string, url: string) => {
  * @param url
  * @param errException
  */
-const createOpenGraph = async (url: string, errException: boolean) => {
-  const commStore = useCommStore()
-  const template = (og: Og) => `
-    <a class="og-preview" href="${og.url}" target="_blank">
-      <sapn class="og-image"><span class="image" style="background-image: url('${og.image}')"></span></sapn>
-      <span class="og-contents">
-        <span class="og-url">${og.url}</span>
-        <span class="og-title">${og.title}</span>
-        <span class="og-description">${og.description}</span>
-      </span>
-    </a>
-  `
-  try {
-    const { data } = await commStore.fetchCrawling({ callUrl: url })
-    const og = getOpenGraphs(data, url)
-    return template(og)
-  } catch(err) {
-    return errException ? '' : Promise.reject(err)
-  }
-}
+// const createOpenGraph = async (url: string, errException: boolean) => {
+//   const commStore = useCommStore()
+//   const template = (og: Og) => `
+//     <a class="og-preview" href="${og.url}" target="_blank">
+//       <sapn class="og-image"><span class="image" style="background-image: url('${og.image}')"></span></sapn>
+//       <span class="og-contents">
+//         <span class="og-url">${og.url}</span>
+//         <span class="og-title">${og.title}</span>
+//         <span class="og-description">${og.description}</span>
+//       </span>
+//     </a>
+//   `
+//   try {
+//     const { data } = await commStore.fetchCrawling({ callUrl: url })
+//     const og = getOpenGraphs(data, url)
+//     return template(og)
+//   } catch(err) {
+//     return errException ? '' : Promise.reject(err)
+//   }
+// }
 
 /**
  * 앵커 tag > 비디오 아이프레임 변환
@@ -108,17 +108,17 @@ const createIframeVideo = (url: string) => `
  * 공유를 위해 포스트 컨텐츠에서 description, image 추출
  * @param postContents
  */
-export const extractionPostContents = (postContents: Post['nttCn'] | PostsItem['nttCn']): ExtractionPostContents => {
-  const container = document.createElement('div')
-  container.innerHTML = postContents.trim()
-  const firstDescription = container.querySelector('p')?.innerText
-  const firstImgUrl = container.querySelector('img')?.getAttribute('src')
+// export const extractionPostContents = (postContents: Post['nttCn'] | PostsItem['nttCn']): ExtractionPostContents => {
+//   const container = document.createElement('div')
+//   container.innerHTML = postContents.trim()
+//   const firstDescription = container.querySelector('p')?.innerText
+//   const firstImgUrl = container.querySelector('img')?.getAttribute('src')
 
-  return {
-    description: firstDescription || '',
-    thumbnail: firstImgUrl || ''
-  }
-}
+//   return {
+//     description: firstDescription || '',
+//     thumbnail: firstImgUrl || ''
+//   }
+// }
 
 
 /**
@@ -127,56 +127,56 @@ export const extractionPostContents = (postContents: Post['nttCn'] | PostsItem['
  * @param viewType 뷰타입 (detail, list)
  * @param ogErrException
  */
-export const replacerPostContents = async (
-  postContents: Post['nttCn'] | PostsItem['nttCn'],
-  viewType: PostContentsType,
-  ogErrException = false
-) => {
-  try {
-    const els = createHtmlByString(postContents)
-    const videos = els.querySelectorAll(`a.${replacePostContentsType.VIDEO_CLASS}`)
-    const anchors = els.querySelectorAll(`a:${replacePostContentsType.LINK_CLASS}`)
+// export const replacerPostContents = async (
+//   postContents: Post['nttCn'] | PostsItem['nttCn'],
+//   viewType: PostContentsType,
+//   ogErrException = false
+// ) => {
+//   try {
+//     const els = createHtmlByString(postContents)
+//     const videos = els.querySelectorAll(`a.${replacePostContentsType.VIDEO_CLASS}`)
+//     const anchors = els.querySelectorAll(`a:${replacePostContentsType.LINK_CLASS}`)
 
-    // replace anchor to open graph
-    for (const anchor of Array.from(anchors)) {
-      const href = anchor.getAttribute('href')
-      if (href) {
-        const og = await createOpenGraph(href, ogErrException)
+//     // replace anchor to open graph
+//     for (const anchor of Array.from(anchors)) {
+//       const href = anchor.getAttribute('href')
+//       if (href) {
+//         const og = await createOpenGraph(href, ogErrException)
 
-        if (og) {
-          anchor.parentNode?.insertBefore(createHtmlByString(og), anchor.nextSibling)
-          anchor.remove()
-        }
-      }
-    }
+//         if (og) {
+//           anchor.parentNode?.insertBefore(createHtmlByString(og), anchor.nextSibling)
+//           anchor.remove()
+//         }
+//       }
+//     }
 
-    // replace anchor to video: only detail view
-    if (viewType === 'detail') {
-      for (const video of Array.from(videos)) {
-        const href = video.getAttribute('href')
-        if (href) {
-          const videoIframe = createIframeVideo(href)
-          video.parentNode?.insertBefore(createHtmlByString(videoIframe), video.nextSibling)
-          video.remove()
-        }
-      }
-    }
+//     // replace anchor to video: only detail view
+//     if (viewType === 'detail') {
+//       for (const video of Array.from(videos)) {
+//         const href = video.getAttribute('href')
+//         if (href) {
+//           const videoIframe = createIframeVideo(href)
+//           video.parentNode?.insertBefore(createHtmlByString(videoIframe), video.nextSibling)
+//           video.remove()
+//         }
+//       }
+//     }
 
-    return getStringByDocumentFragment(els)
-  } catch (err) {
-    return Promise.reject(err)
-  }
-}
+//     return getStringByDocumentFragment(els)
+//   } catch (err) {
+//     return Promise.reject(err)
+//   }
+// }
 
 export default defineNuxtPlugin(() => {
   return {
     provide: {
-      extractionPostContents:
-        (postContents: Post['nttCn'] | PostsItem['nttCn']) =>
-          extractionPostContents(postContents),
-      replacerPostContents:
-        (postContents: Post['nttCn'] | PostsItem['nttCn'], viewType: PostContentsType) =>
-          replacerPostContents(postContents, viewType)
+    //   extractionPostContents:
+    //     (postContents: Post['nttCn'] | PostsItem['nttCn']) =>
+    //       extractionPostContents(postContents),
+    //   replacerPostContents:
+    //     (postContents: Post['nttCn'] | PostsItem['nttCn'], viewType: PostContentsType) =>
+    //       replacerPostContents(postContents, viewType)
     }
   }
 })

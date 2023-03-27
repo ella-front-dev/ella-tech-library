@@ -157,7 +157,6 @@
 <script lang="ts">
 import { defineComponent, PropType, ref, reactive } from 'vue'
 import { Editor } from '@tiptap/core'
-import { useI18n } from '#imports'
 import { usePostStore } from '@/store'
 import { toastMessage } from '@/plugins/toastMessage'
 import ColorPicker from '@/components/base/tip-tap/menu-bar/ColorPicker.vue'
@@ -191,7 +190,6 @@ export default defineComponent({
       isLink: false,
       isVideo: false
     })
-    const { t } = useI18n()
     const postStore = usePostStore()
     const fileUploadInput = ref<HTMLElement | null>(null)
 
@@ -222,10 +220,10 @@ export default defineComponent({
         if(selectBlock?.focusNode?.parentElement?.classList[0] === sort || selectBlock?.focusNode?.parentElement?.nodeName !== 'A'){
           sort === 'link' ? state.isLink = true : state.isVideo = true
         }else{
-          toastMessage(t('postCreate.toastMessage.havingLink'))
+          toastMessage('이미 링크지정이 되었습니다.')
         }
       } else {
-        toastMessage(t('postCreate.toastMessage.noLinkSelect'))
+        toastMessage('링크할 텍스트를 선택해주세요.')
       }
     }
 
