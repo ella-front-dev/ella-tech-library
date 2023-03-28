@@ -1,0 +1,74 @@
+// vue : nuxt3
+{
+  "Script setup with typescript": {
+    "prefix": "sts",
+    "body": ["<script lang=\"ts\" setup>", "$1", "</script>", ""],
+    "description": "Script setup with typescript"
+  },
+  "Scss scoped style": {
+    "prefix": "sss",
+    "body": ["<style lang=\"scss\" scoped>", "$1", "</style>", ""],
+    "description": "Scss scoped style"
+  },
+  "Async Function": {
+    "prefix": "aff",
+    "body": [
+      "async function $1($2){",
+      "  console.log('$1', $2)",
+      "  $0",
+      "}",
+      ""
+    ],
+    "description": "Async Function"
+  },
+  "Function": {
+    "prefix": "ff",
+    "body": ["function $1($2){", "  console.log('$1', $2)", "  $0", "}", ""],
+    "description": "Function"
+  },
+  "Vue modelValue to computed value": {
+    "prefix": "vmc",
+    "body": [
+      "const ${1:value} = computed({",
+      "  get() {",
+      "    return props.${2:modelValue}",
+      "  },",
+      "  set(${1:value}) {",
+      "    emit('update:${2:modelValue}', ${1:value})",
+      "  },",
+      "})"
+    ],
+    "description": "Vue modelValue to computed value"
+  },
+  "Vue modelValue emit, prop": {
+    "prefix": "vmp",
+    "body": [
+      "const emit = defineEmits(['update:${1:modelValue}'])",
+      "const props = defineProps({",
+      "  ${1:modelValue}: { type: Boolean, default: false },",
+      "  $0",
+      "})"
+    ],
+    "description": "Vue modelValue emit, prop"
+  },
+  "Vue Boolean prop": {
+    "prefix": "vbp",
+    "body": ["${1:propName}: { type: Boolean, default: ${2:false} },", ""],
+    "description": "Vue Boolean prop"
+  },
+  "Vue String prop": {
+    "prefix": "vsp",
+    "body": ["${1:propName}: { type: String, default: ${2:\"\"} },", ""],
+    "description": "Vue String prop"
+  },
+  "Console log": {
+    "prefix": "log",
+    "body": ["console.log(\"$1\", $1)", "$0"],
+    "description": "Console log"
+  },
+  "Console log with namespace": {
+    "prefix": "log2",
+    "body": ["console.log(\"${1:namespace}:$2\", $2)", "$0"],
+    "description": "Console log with namespace"
+  }
+}

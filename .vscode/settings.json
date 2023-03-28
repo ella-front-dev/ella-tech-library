@@ -1,0 +1,16 @@
+// vue : nuxt3
+{
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Solarized Dark",
+  "html.format.unformatted": "",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.formatOnSave": true
+}
