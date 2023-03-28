@@ -43,10 +43,10 @@ export default defineNuxtConfig({
     ],
   },
 
-  devServer: {
-    host: '0.0.0.0',
-    port: 3000,
-  },
+  // devServer: {
+  //   // host: 'http://localhost',
+  //   port: 5000,
+  // },
 
   build: {
     analyze: true,
