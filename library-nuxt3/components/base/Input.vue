@@ -1,19 +1,35 @@
 <template>
-  <div :class="['input-group',themeClass]">
-    <label :for="id" class="input-label">{{label}}</label>
+  <div
+    :class="[
+      'input-group',
+      themeClass,
+      {
+        disabled,
+        success: validate.isSuccess,
+        fail: validate.isFail,
+      },
+    ]"
+  >
+    <label :for="id" class="input-label">{{ label }}</label>
     <div class="input-box">
       <input
-        :id="id"
+        :id="id !== '' ? id : undefined"
         ref="input"
         :type="type"
+        :name="inputName !== '' ? inputName : undefined"
         :value="modelValue"
         :class="['input', `${$props.class}`]"
         :placeholder="placeholder"
-        size="1"
+        :disabled="disabled"
+        :readonly="inputReadonly"
+        :autocomplete="autoComplete"
+        :autofocus="autofocus"
+        size="14"
         @input="handleOnUpdate"
         @focus="$emit('on-focus')"
         @blur="$emit('on-blur')"
-        @keydown.enter="$emit('on-search')"
+        @keyup="$emit('on-keyup')"
+        @keydown.enter="$emit('on-keydown')"
       />
       <div class="input-tools" v-if="isOption">
         <BaseButtonsIcon
@@ -22,12 +38,19 @@
           :class="['btn-clear', { on: modelValue }]"
           @click="handleOnClear"
         />
-        <em v-if="maxByte > 0" class="count-box">({{countByte}}/{{maxByte}})</em>
-        <slot name="tools"/>
+        <em v-if="maxByte > 0" class="count-box">
+          ({{ countByte }}/{{ maxByte }})
+        </em>
+        <slot name="tools" />
       </div>
     </div>
-    <div class="" v-if="validate.status">
-      <p></p>
+    <div class="validate" v-if="validate.status">
+      <p class="text" v-if="validate.isSuccess">
+        {{ validate.successMessage }}
+      </p>
+      <p class="text" v-if="validate.isFail">
+        {{ validate.failMessage }}
+      </p>
     </div>
   </div>
 </template>
@@ -36,66 +59,101 @@ import { defineComponent, ref, PropType, computed } from 'vue'
 import { calcByte } from '@/plugins/check/check-byte'
 import BaseButtonsIcon from '@/components/base/buttons/Icon.vue'
 
+interface validateType {
+  status: boolean
+  isSuccess?: boolean
+  successMessage?: string
+  isFail?: boolean
+  failMessage?: string
+}
+
+const validateDefault = {
+  status: false,
+  isSuccess: false,
+  successMessage: '',
+  isFail: false,
+  failMessage: '',
+}
+
 export default defineComponent({
   name: 'BaseInput',
   components: {
-    BaseButtonsIcon
+    BaseButtonsIcon,
   },
   props: {
     modelValue: {
       required: true,
-      type: [String, Number]
+      type: [String, Number],
+    },
+    inputName: {
+      type: String,
+      default: '',
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     type: {
       type: String,
-      default: 'text'
+      default: 'text',
     },
     class: {
       type: String,
-      default: ''
+      default: '',
     },
     placeholder: {
       type: String,
-      default: ''
+      default: '',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    inputReadonly: {
+      type: Boolean,
+      default: false,
+    },
+    autofocus: {
+      type: Boolean,
+      default: false,
+    },
+    autoComplete: {
+      type: String,
+      default: 'off',
     },
     theme: {
       type: String as PropType<'default' | 'search'>,
-      default:  'default'
+      default: 'default',
     },
-    maxByte:  {
+    maxByte: {
       type: Number,
-      default: -1
+      default: -1,
     },
     isOption: {
       type: Boolean,
-      default: false
+      default: false,
     },
     validate: {
-      type: Object,
-      default: ()=> ({})
-    }
+      type: Object as PropType<validateType>,
+      default: () => validateDefault,
+    },
   },
-  emits: [
-    'update:modelValue',
-    'on-focus',
-    'on-blur',
-    'on-search'
-  ],
-  setup(props, { emit }){
+  emits: ['update:modelValue', 'on-focus', 'on-blur', 'on-keydown', 'on-keyup'],
+  setup(props, { emit }) {
     const input = ref<HTMLElement | null>(null)
-    const themeClass = computed(()=> `theme-${props.theme}`)
-    const countByte = computed(()=> calcByte(String(props.modelValue)))
+    const themeClass = computed(() => `theme-${props.theme}`)
+    const countByte = computed(() => calcByte(String(props.modelValue)))
 
     const handleOnUpdate = (e: any) => {
-      if (props.maxByte !== -1 && countByte.value >= props.maxByte && e.target.value > props.modelValue) {
+      if (
+        props.maxByte !== -1 &&
+        countByte.value >= props.maxByte &&
+        e.target.value > props.modelValue
+      ) {
         e.target.value = props.modelValue
         return
       }
@@ -107,7 +165,7 @@ export default defineComponent({
     }
 
     return { handleOnUpdate, handleOnClear, input, themeClass, countByte }
-  }
+  },
 })
 </script>
 <style lang="scss" scoped>
@@ -120,10 +178,10 @@ export default defineComponent({
   flex-direction: column;
   width: 100%;
 
-  .input-label{
+  .input-label {
     text-align: left;
     @include text-style($text-body-14-bold);
-    color:  $color-text-4
+    color: $color-text-4;
   }
 
   .input-box {
@@ -157,7 +215,7 @@ export default defineComponent({
     .btn-clear {
       transform: scale(0);
       pointer-events: none;
-      @include transition(transform .15s);
+      @include transition(transform 0.15s);
 
       &.on {
         transform: scale(1);
@@ -181,13 +239,61 @@ export default defineComponent({
         color: $color-text-3;
       }
 
-      > input{
+      > input {
         color: $color-text-4;
       }
     }
   }
+
+  // input disabled style
+  &.disabled {
+    .input-box {
+      padding: 0 20px;
+      background-color: $color-bg-1;
+      border: 1px $color-text-3;
+
+      > input {
+        color: $color-text-3;
+      }
+    }
+  }
+
+  // validate success style
+  &.success {
+    .input-box {
+      padding: 0 20px;
+      background-color: $color-bg-1;
+      border: 1px solid $color-primary-blue;
+
+      > input {
+        color: $color-text-3;
+      }
+    }
+    .validate {
+      .text {
+        @include text-style($text-body-11-regular);
+        color: $color-primary-blue;
+      }
+    }
+  }
+
+  // validate fail style
+  &.fail {
+    .input-box {
+      padding: 0 20px;
+      background-color: $color-bg-1;
+      border: 1px solid $color-primary-red;
+
+      > input {
+        color: $color-text-3;
+      }
+    }
+    .validate {
+      .text {
+        @include text-style($text-body-11-regular);
+        color: $color-primary-red;
+      }
+    }
+  }
 }
-
 </style>
-
-

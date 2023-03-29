@@ -50,14 +50,15 @@ export default defineComponent({
   color: $color-white;
 }
 .title {
-  @include text-style($text-heading2-bold)
+  @include text-style($text-heading2-bold);
+  margin-bottom: 14px;
 }
 
 .sub-title {
   @include text-style($text-heading3-bold)
 }
 .contents {
-  
+  width: 100%;
 }
 
 
