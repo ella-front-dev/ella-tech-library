@@ -1,23 +1,20 @@
 <template>
-  <div class="hashtag-input-box">
-    <label class="hashtag-input-label">
-      <input
-        ref="inputRef"
-        type="text"
-        class="hashtag-input"
-        :placeholder="$t('postCreate.placeholder.hashtag')"
-        @focus="handleOnInputFocusBlur(true)"
-        @blur="handleOnInputFocusBlur(false)"
-      />
-    </label>
+  <div class="hashtag-input-area">
+    <input
+      id="tag-input"
+      ref="inputRef"
+      type="text"
+      class="hashtag-input"
+      placeholder="Tag를 입력하세요."
+      @focus="handleOnInputFocusBlur(true)"
+      @blur="handleOnInputFocusBlur(false)"
+    />
     <div :class="['hashtag-menu-wrap', { on: showDropDown }]">
       <ul
-        ref="menuContainer"
         class="hashtag-menu-box"
       >
         <HashtagMenu
           v-for="(item, index) in filterTags"
-          :ref="el=> {menuItemRef[index]= el}"
           :key="index"
           :index="index"
           :item="item"
@@ -30,11 +27,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, InputHTMLAttributes, onMounted, onUnmounted,reactive,ref, watch, computed } from 'vue'
+import { defineComponent, InputHTMLAttributes, onMounted, onUnmounted,reactive,ref, PropType, watch, computed } from 'vue'
 import { useNuxtApp } from '#app'
-import HashtagMenu from '@/components/hashtag/create-hashtag/HashtagItem.vue'
-import { detectElementInViewport } from '@/plugins/detectElementInViewport'
-import { toastMessage } from '@/plugins/toastMessage'
+import HashtagMenu, { hashtagSetType } from '@/components/base/create-hashtag/HashtagMenu.vue'
+
+// import { CheckTextAndNumber } from '@/plugins/commonFunction'
 
 export default defineComponent({
   name: 'TagInput',
@@ -44,10 +41,10 @@ export default defineComponent({
   props: {
     hashtagSet: {
       required: true,
-      type : Array
+      type : Array as PropType<hashtagSetType[]>
     },
     tagSet: {
-      type : Array,
+      type : Array as PropType<hashtagSetType[]>,
       default: ()=>([])
     }
   },
@@ -57,20 +54,19 @@ export default defineComponent({
     'checkDoubleTag'
   ],
   setup(props, { emit }) {
-    const { $checkByte, $checkSpecialCharacters } = useNuxtApp()
+    const { $validByte, $CheckTextAndNumber  } = useNuxtApp()
+
     const inputRef = ref<HTMLInputElement | null>(null)
     const inputFocus = ref(false)
     const choiceTagsIndex = ref<number | null>(null)
-    const menuItemRef = ref<typeof HashtagMenu[]>([])
-    const menuContainer = ref<HTMLElement | null>(null)
 
-    const state = reactive({
+    const state = reactive<{ tags: hashtagSetType[], preValue: string, activeIndex: number, inputValue: string }>({
       tags: [],
       preValue: '',
       activeIndex: 0,
       inputValue : ''
     })
-    const filterTags = computed(()=> state.inputValue ? props.hashtagSet.filter(item => item.includes(state.inputValue)) : [])
+    const filterTags = computed(()=> state.inputValue ? props.hashtagSet.filter(item => item.hashtagNm.includes(state.inputValue)) : [])
     // const showDropDown = computed(() => filterTags.value.length && inputFocus.value)
     const showDropDown = computed(() => filterTags.value.length && state.inputValue)
 
@@ -80,10 +76,10 @@ export default defineComponent({
       }
     },{ immediate: true })
 
-    // Keyup 이벤트
+    // Keyup 이벤트 
     const handleOnKeyUp = (evt: KeyboardEvent) => {
       state.inputValue = (evt.target as InputHTMLAttributes)?.value.trim()
-      /**
+      /** 
        * 1. Enter & Spacebar
        *  - 현재 Null값인지 체크
        *    - Null 값이면 Not Action
@@ -104,13 +100,13 @@ export default defineComponent({
       if(evt.code === 'Comma' || evt.code === 'Enter'){
         if(state.inputValue !== ''){
           choiceTagsIndex.value !== null ?
-            emit('checkDoubleTag', filterTags.value[choiceTagsIndex.value])
+            emit('checkDoubleTag', filterTags.value[choiceTagsIndex.value].hashtagNm) 
             :emit('checkDoubleTag', state.inputValue)
         }
         // 초기화
         // (evt.target as InputHTMLAttributes).value = ''
         handleOnReset()
-      }
+      } 
       // backspace 입력
       else if(evt.code === 'Backspace'){
         if (state.inputValue  === '' && !state.preValue){
@@ -134,22 +130,21 @@ export default defineComponent({
 
     const handleOnValidate = () => {
       const target = inputRef.value!.value
-
-      if($checkSpecialCharacters(target)){
+      if(!$CheckTextAndNumber(target)){
         handleOnReset()
-        toastMessage('한글, 영문, 숫자만 입력 가능합니다.')
-      } else if($checkByte(target, 60, 'over')){
+        alert('한글, 영문, 숫자만 입력 가능합니다.')
+      } else if(!$validByte(target, 60, 'and_under')){
         handleOnReset()
-        toastMessage('최대 30자까지 입력 가능합니다.')
-      } else if(props.tagSet.length >= 5){
+        alert('최대 30자까지 입력 가능합니다.')
+      } else if(props.tagSet.length >= 5){   
         handleOnReset()
-        toastMessage('태그는 최대 5개까지 입력 가능합니다.')
+        alert('태그는 최대 5개까지 입력 가능합니다.')
       }
     }
 
-
-    const  clickOnMenu = (item:string) => {
-      (props.tagSet.length >= 5) ?  toastMessage('태그는 최대 5개까지 입력 가능합니다.'): emit('update', item)
+    
+    const  clickOnMenu = (item:hashtagSetType) => {
+      (props.tagSet.length >= 5) ?  alert('태그는 최대 5개까지 입력 가능합니다.') : emit('update', item)
       handleOnReset()
     }
 
@@ -163,29 +158,26 @@ export default defineComponent({
       if (!showDropDown.value) return
       if (choiceTagsIndex.value === null){
         choiceTagsIndex.value = 0
-        return
-      }
+        return 
+      } 
       if(choiceTagsIndex.value === filterTags.value.length-1){
         choiceTagsIndex.value = null
-        return
+        return 
       }
 
       switch (type) {
         case 'increase':
+
           choiceTagsIndex.value = (choiceTagsIndex.value % filterTags.value.length) + 1
-          if(!detectElementInViewport(menuItemRef.value[choiceTagsIndex.value].$el, menuContainer.value)) {
-            menuItemRef.value[choiceTagsIndex.value].$el.scrollIntoView()
-          }
           break
         case 'decrease':
           choiceTagsIndex.value = (choiceTagsIndex.value - 1) > 0 ? choiceTagsIndex.value - 1 : 0
-          if(!detectElementInViewport(menuItemRef.value[choiceTagsIndex.value].$el, menuContainer.value, 'top')) {
-            menuItemRef.value[choiceTagsIndex.value].$el.scrollIntoView()
-          }
           break
         default:
           throw new Error('handle on choice tag type is not match')
       }
+
+      console.log(choiceTagsIndex.value)
     }
 
     const handleOnInputFocusBlur = (focus: boolean) => {
@@ -194,22 +186,18 @@ export default defineComponent({
 
     // Input Keyup Event
     onMounted(() => {
-      inputRef.value!.addEventListener('keyup', (evt: KeyboardEvent) => handleOnKeyUp (evt), true)
-      inputRef.value!.addEventListener('keydown', () => handleOnUpdateValue (), true)
+      inputRef.value!.addEventListener('keyup', (evt: KeyboardEvent) => handleOnKeyUp (evt))
+      inputRef.value!.addEventListener('keydown', () => handleOnUpdateValue ())
     })
 
     onUnmounted(()=>{
-      if(inputRef.value) {
-        inputRef.value!.removeEventListener('keyup', (evt: KeyboardEvent) => handleOnKeyUp (evt))
-        inputRef.value!.removeEventListener('keydown',() => handleOnUpdateValue ())
-      }
+     inputRef.value!.removeEventListener('keyup', (evt: KeyboardEvent) => handleOnKeyUp (evt))
+     inputRef.value!.removeEventListener('keydown',() => handleOnUpdateValue ())
     })
 
     return {
       state,
       inputRef,
-      menuItemRef,
-      menuContainer,
       showDropDown,
       choiceTagsIndex,
       filterTags,
@@ -226,31 +214,23 @@ export default defineComponent({
 @import '@/assets/styles/abstracts/mixin.scss';
 @import '@/assets/styles/abstracts/variables.scss';
 
-.hashtag-input-box {
+.hashtag-input-area {
   position: relative;
-  margin-left: 8px;
-  flex-grow: 1;
-  min-width: 50%;
+  padding-left: 15px;
+}
 
-  .hashtag-input-label {
-    display: block;
-    width: 100%;
-    border-radius: 8px;
-  }
+.hashta-input-box {
+  position: relative;
 
   .hashtag-input{
-    width: 100%;
-
-    &::placeholder {
-      color: $color-text-3
-    }
+    position: relative;
+    background-color: transparent;
+    z-index:1;
   }
 }
 
-
 .hashtag-menu-wrap {
   position: absolute;
-  bottom: 40px;
   left: 0;
   width: 100%;
   height: auto;
@@ -268,12 +248,11 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-height: 150px;
+    height: auto;
     padding: 4px 0;
     border: 1px solid $color-black-5p;
     border-radius: 5px;
     background-color: #ffffff;
-    overflow: auto;
   }
 }
 </style>

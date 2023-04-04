@@ -1,11 +1,18 @@
 <template>
   <li :class="['hashtag-menu', index === activeIndex ? 'active ': '' ]">
-    <span class="label">{{item}}</span>
+    <span class="label">{{item.hashtagNm}}</span>
   </li>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+
+export type hashtagSetType = {
+  hashtagNm: string,
+  hashtagSn: number,
+  langCode: string
+}
+
 
 export default defineComponent({
   name: 'HashtagMenu',
@@ -20,7 +27,7 @@ export default defineComponent({
     },
     item: {
       required: true,
-      type: String
+      type: Object as PropType<hashtagSetType>
     }
   }
 })

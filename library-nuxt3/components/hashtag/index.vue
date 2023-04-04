@@ -1,14 +1,14 @@
 <template>
   <div class="hashtag-area">
     <div class="hashtag-box">
-      <HashtagItem 
-        v-for="(item, index) in state.tagSet" 
+      <HashtagItem
+        v-for="(item, index) in state.tagSet"
         :key="index"
-        :index="index" 
+        :index="index"
         :hashtag="item"
         :prefix="'#'"
         @update-delete="handleOnDeleteTag(index)"
-       />
+      />
     </div>
     <TagInput
       :hashtag-set="hashtagSet"
@@ -23,70 +23,86 @@
 <script lang="ts">
 import { defineComponent, reactive, watch } from 'vue'
 import { toastMessage } from '@/plugins/toastMessage'
-import TagInput from '@/components/base/create-hashtag/TagInput.vue'
-import HashtagItem from '@/components/base/create-hashtag/HashtagItem.vue'
+import TagInput from '@/components/hashtag/TagInput.vue'
+import HashtagItem from '@/components/hashtag/HashtagItem.vue'
+import { hashtagSetType } from '@/components/hashtag/HashtagMenu.vue'
 
 export default defineComponent({
-  name: 'BaseCreateHashtag',
+  name: 'BaseHashtag',
   components: {
     TagInput,
-    HashtagItem
+    HashtagItem,
   },
   props: {
     hashtagSet: {
       required: true,
-      type: Array
+      type: Array as PropType<hashtagSetType>,
     },
     tags: {
       type: Array,
-      default: ()=>[]
-    }
+      default: () => [],
+    },
   },
   emits: ['updateTags'],
-  setup(_props,{ emit }) {
-    const state = reactive<{tagSet:string[], totalTagLength:number}>({
+  setup(props, { emit }) {
+    const state = reactive<{
+      tagSet: hashtagSetType[]
+      totalTagLength: number
+    }>({
       tagSet: [],
-      totalTagLength: 0
+      totalTagLength: 0,
     })
 
-    watch(state.tagSet,(current)=>{
+    watch(state.tagSet, (current) => {
       emit('updateTags', current)
     })
 
-    const handleOnPushTag = (str:string) => {
+    // Add Tag
+    const handleOnPushTag = (str: string) => {
       state.tagSet.push(str)
-      // const filterTag = props.hashtagSet.filter(item => item === str)
-      // if(filterTag.length > 0){
-      //   state.tagSet.push(filterTag)
-      // }else{
-      //   const newTag = { hashtagNm: str, hashtagSn: -1, langCode: 'KO' }
-      //   state.tagSet.push(newTag)
-      // }
+      const filterTag = props.hashtagSet.filter(
+        (item: hashtagSetType) => item.hashtagNm === str,
+      )
+      if (filterTag.length > 0) {
+        state.tagSet.push(filterTag)
+      } else {
+        const newTag = { hashtagNm: str, hashtagSn: -1 }
+        state.tagSet.push(newTag)
+      }
     }
 
-    const handleOnSelectTag = (item:string) => {
+    // Select Tag
+    const handleOnSelectTag = (item: string) => {
       state.tagSet.push(item)
     }
 
+    // Delete select tag index
     const handleOnPopTag = () => {
       state.tagSet.pop()
     }
 
-    const handleOnDeleteTag = (index:number) => {
+    const handleOnDeleteTag = (index: number) => {
       state.tagSet.splice(index, 1)
     }
 
-    const checkDoubleTag = (str:string) => {
-      const findTag = state.tagSet.findIndex(item => item === str)
-      if(findTag === -1){
-        return handleOnPushTag(str)
-      }else{
+    const checkDoubleTag = (str: string) => {
+      const findTag = state.tagSet.findIndex((item) => item.hashtagNm === str)
+      if (findTag === -1) {
+        return handleOnPushTag()
+      } else {
         toastMessage('중복된 태그입니다.')
       }
     }
 
-    return { state,  handleOnPushTag, handleOnPopTag, handleOnDeleteTag, checkDoubleTag,   handleOnSelectTag  }
-  }
+    return {
+      state,
+      handleOnPushTag,
+      handleOnPopTag,
+      handleOnDeleteTag,
+      checkDoubleTag,
+      handleOnSelectTag,
+    }
+  },
 })
 </script>
 
@@ -98,18 +114,17 @@ export default defineComponent({
 .hashtag-area {
   display: flex;
   align-items: center;
-  flex-wrap : wrap;
+  flex-wrap: wrap;
   width: 100%;
   padding: 10px 15px;
   background-color: $color-white;
   border-radius: 8px;
   border: 1px solid $color-bg-custom-2;
-
 }
 
 .hashtag-box {
   display: flex;
-  flex-wrap : wrap;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
 
@@ -117,6 +132,4 @@ export default defineComponent({
     margin-left: 8px;
   }
 }
-
-
 </style>

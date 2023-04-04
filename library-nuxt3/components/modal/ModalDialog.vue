@@ -15,14 +15,14 @@
     <div :class="['modal__action','grid-wrapper',`grid-${$attrs.btn.grid}`, 'gap-4']">
       <BaseButtonsText
         v-show="$attrs.btn.isCancel"
-        :label="$t('cancel')"
+        :label="'cancel'"
         :theme="'transparent'"
         :size="32"
         :full-width="true"
         @click="$emit('cancel', close)"
       />
       <BaseButtonsText
-        :label="$t('confirm')"
+        :label="'confirm'"
         :theme="'primary-red-light'"
         :size="32"
         :full-width="true"

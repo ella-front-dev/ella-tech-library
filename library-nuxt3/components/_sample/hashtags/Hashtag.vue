@@ -1,39 +1,25 @@
 <template>
   <div class="hashtag">
-    <span>{{`${prefix} `}}{{hashtag}}</span>
-    <button
-      type="button"
-      class="btn-close"
-      @click="$emit('updateDelete',index)"
-    >
-      <BaseIcon
-        :icon="{type:'outline', name: 'close-compact'}"
-        :size="20"
-      />
-    </button>
+    <span>{{`${prefix} `}}{{hashtag.hashtagNm}}</span>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import { Hashtag } from '@/store/common/type'
 
 export default defineComponent({
   name: 'HashtagItem',
   props: {
     hashtag: {
       required: true,
-      type: String
-    },
-    index:{
-      type: Number,
-      default: 0
+      type: Object as PropType<Hashtag>
     },
     prefix: {
       type: String,
       default: ''
     }
   },
-  emits:['updateDelete'],
   setup() {
     return {}
   }
@@ -51,17 +37,12 @@ export default defineComponent({
   width: auto;
   height: 30px;
   padding: 3px 10px;
-  border-radius: 30px;
-  background-color: $color-secondary-red-light-10;
+  border-radius: 14px;
+  background-color: $color-bg-1;
   flex-shrink: 0;
 
+  @include ellipsis(1);
   @include text-style($text-body-14-regular);
-  color: $color-secondary-red-light-80;
-
-  .btn-close {
-    display: flex;
-    align-items: center;
-    margin-left: 4px;
-  }
+  color: $color-text-4;
 }
 </style>
