@@ -35,8 +35,8 @@ Ella's Secret Frontend Tech Note
 - 각 기능별 Branch 따로 만들어두기
 
 #### Branch name rule
-- master : main branch
-- develop : 개발 완료된 branch를 merge하는 branch
+- main : main branch
+- dev : 개발 완료된 branch를 merge하는 branch
 - feat/[feat]-[library명] : 환경 셋팅 개발하는 branch
 - set/[feat명] : 기능별 완료된 branch 
 
