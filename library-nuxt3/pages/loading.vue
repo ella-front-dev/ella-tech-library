@@ -1,28 +1,39 @@
 <template>
   <div class="container">
-    <h2 class="title">Welcome to Ella's Nuxt3</h2>
-    <div>
-      <span class="sub-title">Setup List</span>
-      <ul>
-        <li>locale</li>
-        <li>alias 셋팅</li>
-        <li>scss 설정</li>
-        <li>typescript 설정</li>
-        <li>store 설정</li>
-        <li>vtie / webpack 설정</li>
-      </ul>
-    </div>
-  
+    <h2 class="title">LoadingIndicator</h2>
+    <form class="content">
+      <span @click="isGlobalLoading = !isGlobalLoading">
+        Global LoadingIndicator
+      </span>
+      <span @click="isLoading = !isLoading">LoadingIndicator</span>
+      <div class="section">
+        <!-- <LoadingIndicatorGlobal v-if="state.isGlobalLoading" />
+        <LoadingIndicator v-if="state.isLoading" /> -->
+      </div>
+    </form>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, reactive } from 'vue'
+import LoadingIndicatorGlobal from '@/components/base/LoadingIndicatorGlobal.vue'
+import LoadingIndicator from '@/components/base/LoadingIndicator.vue'
+
+definePageMeta({
+  layout: 'sub',
+})
 
 export default defineComponent({
+  components: {
+    LoadingIndicatorGlobal,
+    LoadingIndicator,
+  },
   setup() {
-    return {}
-  }
+    const isGlobalLoading = ref(false)
+    const isLoading = ref(false)
+
+    return { isGlobalLoading, isLoading }
+  },
 })
 </script>
 
@@ -31,20 +42,38 @@ export default defineComponent({
 @import '@/assets/styles/abstracts/functions.scss';
 @import '@/assets/styles/abstracts/mixin.scss';
 
-.container{
+.container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: auto;
-  padding: 120px 0;
+  padding: 120px 24px;
   width: 100%;
   max-width: 960px;
-  color: $color-white;
 }
 
 .title {
-  
+  @include text-style($text-heading2-bold);
 }
 
+.content {
+  display: flex;
+  gap: 8px;
+  width: 100%;
 
+  .section {
+    margin-top: 24px;
+    border-top: 1px solid $color-text-5;
+  }
+
+  span {
+    padding: 8px;
+    border: 1px solid $color-text-5;
+    border-radius: 8px;
+    margin-top: 8px;
+    color: $color-text-6;
+    cursor: pointer;
+  }
+}
 </style>

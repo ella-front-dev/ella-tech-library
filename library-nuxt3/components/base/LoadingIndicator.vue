@@ -16,8 +16,7 @@
 <script lang="ts">
 import { defineComponent, PropType, computed } from 'vue'
 import { LottieAnimation } from 'lottie-web-vue'
-import * as spinnerLineOnLight from 'assets/data/lottie/spinner-line-on-light.json'
-import * as spinnerLineOnDark from 'assets/data/lottie/spinner-line-on-dark.json'
+import * as spinner from '@/assets/data/loading-rainbow.json'
 
 export default defineComponent({
   name: 'BaseLoadingIndicator',
@@ -45,10 +44,10 @@ export default defineComponent({
     const animationData = computed(() => {
       switch (props.bgBright) {
         case 'light':
-          return spinnerLineOnLight
+          return spinner
         case 'dark':
         default:
-          return spinnerLineOnDark
+          return spinner
       }
     })
 
